@@ -1,5 +1,5 @@
 # particle-ymodem
-Basic implementation of the Ymodem-protocol as implemented in Particle devices. Currently created and tested only to send firmware files to a Particle Photon.
+Basic implementation of the Ymodem-protocol as used in Particle devices. Currently created and tested only to send firmware files to a Particle Photon.
 
 ##### Install using NPM
 ```

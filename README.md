@@ -16,7 +16,7 @@ var fs = require('fs');
 
 var file = fs.readFileSync('./firmware.bin');
 var serialPort = new serialPort.SerialPort('/dev/cu.usbmodemfd131', {baudrate: 28800}, false);
-var progressCallback = function(val){  console.log( Math.round(val.current/val.total) + '%' );}
+var progressCallback = function(val){  console.log( Math.round(val.current*100/val.total) + '%' );}
 var logCallback = console.log;
 
 var modem = new lightYModem();

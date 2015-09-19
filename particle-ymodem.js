@@ -15,7 +15,7 @@ var LightYModem = module.exports = function LightYModem(){
 		var timer;
 		self.ymodem.write(packet, function(err, res){
 			if(err){
-				console.error('Error:', err);
+				self.consoleLog('Error:', err);
 			} else if(res === -1){
 				self.consoleLog('result is -1'); // res values are undocumented, it seems like an error, and when it is send, the callback is called twice.
 			} else if(cb){
@@ -95,10 +95,10 @@ var LightYModem = module.exports = function LightYModem(){
 		self.progressCb = progressCb || self.progressCb;
 
 		self.ymodem.on('error', function(msg){
-			console.error('Error', msg);
+			self.consoleLog('Error', msg);
 		});
 		self.ymodem.on('close', function(){
-			console.error('Close');
+			self.consoleLog('Close');
 		});
 		self.ymodem.on('open', function () {
 			self.ymodem.on('data', function(data) {

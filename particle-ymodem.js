@@ -39,7 +39,7 @@ var LightYModem = module.exports = function LightYModem(){
 
 		self.ymodem.once('data', function(data) {
 			var response = data[0];
-			self.consoleLog('sent packet nr ' + self.seq);
+		//	self.consoleLog('sent packet nr ' + self.seq);
 			self.seq += 1;
 			cb(response);
 		});
@@ -89,7 +89,7 @@ var LightYModem = module.exports = function LightYModem(){
 	}
 
 
-	self.transfer = function transfer(file, ymodem, progressCb, consoleOutput){
+	self.transfer = function transfer(file, ymodem, progressCb, finishedCb, consoleOutput){
 		self.ymodem = ymodem;
 		self.consoleLog = consoleOutput || self.consoleLog;
 		self.progressCb = progressCb || self.progressCb;
@@ -98,7 +98,8 @@ var LightYModem = module.exports = function LightYModem(){
 			self.consoleLog('Error', msg);
 		});
 		self.ymodem.on('close', function(){
-			self.consoleLog('Close');
+			self.consoleLog('finished');
+			finishedCb();
 		});
 		self.ymodem.on('open', function () {
 			self.ymodem.on('data', function(data) {
@@ -119,7 +120,7 @@ var LightYModem = module.exports = function LightYModem(){
 				self.consoleLog('done header');
 				self.send_packet(file, function(response){
 					self.consoleLog('done file');
-					 self._send_close();
+					self._send_close();
 				});
 			});
 

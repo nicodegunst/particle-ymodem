@@ -53,7 +53,7 @@ var LightYModem = module.exports = function LightYModem(){
 			self.send_filename_header("", 0, function(){
 				self.consoleLog('header sent');
 			});
-			
+			setTimeout(function(){ self.ymodem.close();},0);
 		});
 	};
 
@@ -101,7 +101,10 @@ var LightYModem = module.exports = function LightYModem(){
 			self.consoleLog('finished');
 			finishedCb();
 		});
-		self.ymodem.on('open', function () {
+		self.ymodem.on('open', function (error) {
+			if(error){
+				console.log('open 2 error', error);
+			}
 			self.ymodem.on('data', function(data) {
 				if(data.length <= 2){
 					for(var x=0;x<data.length;x++){
